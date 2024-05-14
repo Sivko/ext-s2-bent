@@ -1,4 +1,4 @@
+# Расширение для работы S2 с Деловыми сделками
 
-## [YouTube Walkthrough](https://youtu.be/h-OP0dtkyI8)
-
-[Chrome Extension Tutorial] Build Chrome Extension with React & Typescript# extensions-crm
+Примечание:
+1. Работает через авторизацию на стороне dasreda

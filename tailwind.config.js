@@ -1,4 +1,3 @@
-const { withAnimations } = require('animated-tailwindcss')
 const colors = require('tailwindcss/colors')
 
 
@@ -8,7 +7,8 @@ module.exports = {
   theme: {
     colors: {
       main: "#26325c",
-      white: "#fff"
+      white: "#fff",
+      outline: "#e0e0e0"
     },
     extend: {},
   },

@@ -1,5 +1,5 @@
 {
-  "name": "ext-zillow-reader",
+  "name": "ext-s2-bent",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
     "ky": "^1.2.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

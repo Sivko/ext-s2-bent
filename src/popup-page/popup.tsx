@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import { AiFillAlert } from "react-icons/ai"
-import Token from "./Token";
-import Parsing from "./Parsing";
-import Batch from "./Batch";
-import ContextProvider from "./context-provider";
+import Token from "@/Components/Popup/Token";
+import Parsing from "@/Components/Popup/Parsing";
+import Batch from "@/Components/Popup/Batch";
+import ContextProvider from "@/context-provider";
 
 interface IProps {
 
@@ -12,9 +12,14 @@ interface IProps {
 
 const tabs = [{ name: "Токен", component: Token }, { name: "Парсинг", component: Parsing }, { name: "Массовое изменение", component: Batch }]
 
+function Component({ component }: { component: any }) {
+  const ComponentItem = component
+  return <ComponentItem />
+}
+
 export const Popup: FC<IProps> = () => {
 
-  const [activeItem, setActiveItem] = useState(0);
+  const [activeItem, setActiveItem] = useState(2);
 
   useEffect(() => {
   }, []);
@@ -40,8 +45,7 @@ export const Popup: FC<IProps> = () => {
               )
             })}
           </div>
-          {tabs[activeItem].component}
-          <button onClick={()=>{debugger}}></button>
+          <Component component={tabs[activeItem].component} />
         </div >
       </ContextProvider>
     </>

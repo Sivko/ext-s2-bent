@@ -27,8 +27,15 @@ module.exports = {
   mode: "development",
   devtool: 'cheap-module-source-map',
   resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src/'),
+    },
+    roots: [
+      resolve('./src'),
+
+    ],
     extensions: ['.ts', '.js', '.tsx'],
- },
+  },
   entry: {
     popup: './src/popup-page/popup.tsx',
     contentscript: './src/contentscript.ts',

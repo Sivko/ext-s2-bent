@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../context-provider";
+import { Context } from "@/context-provider";
 
 function Token() {
 
@@ -15,26 +15,23 @@ function Token() {
     <div className="flex items-center gap-4 animate-fade animate-delay-[250ms]">
       <span className="max-w-[70px] w-[70px] truncate">Токен</span><input value={token} onChange={e => setToken(prev => { chrome.storage.local.set({ token: e.target.value }); return e.target.value })} placeholder="https://app.salesap.ru/" type="text" className="border-solid border-main border-opacity-20 border-0 border-b py-1 outline-none focus:border-opacity-100 transition-all flex-1" />
     </div>
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 mt-4">
       <div>
-        <div>Роль: <span>{ }</span></div>
-        <div>e-mail: <span>{ }</span></div>
+        <div className="truncate animate-fade animate-delay-[260ms]"><span>{account?.userData?.data.attributes.email}</span></div>
+        <div className="truncate animate-fade animate-delay-[270ms]"><span>{account?.userData?.data.attributes["last-name"]} {account?.userData?.data.attributes["middle-name"][0]}. {account?.userData?.data.attributes["first-name"][0]}.</span></div>
+        <div className="truncate animate-fade animate-delay-[280ms]">Роль: <span>{account?.userData?.data.attributes.role}</span></div>
       </div>
       <div>
-        <div>user: <span>{ }</span></div>
-        <div>user: <span>{ }</span></div>
-        <div>user: <span>{ }</span></div>
+        <div className="truncate animate-fade animate-delay-[290ms]">Аккаунт: <span>{account?.userData?.included[0].id}</span></div>
+        <div className="truncate animate-fade animate-delay-[300ms]"><span>{account?.userData?.included[0].attributes["company-name"]}</span></div>
       </div>
       <div>
-        <div>Подписка: <span>{ }</span></div>
-        <div>user: <span>{ }</span></div>
-        <div>user: <span>{ }</span></div>
+        <div className="truncate animate-fade animate-delay-[310ms]">Подписка: <span>{ `n/a `}</span></div>
+        <div className="truncate animate-fade animate-delay-[320ms]">Лимит: <span>{ `n/a `}</span></div>
       </div>
     </div>
-
-  {JSON.stringify(account)}
 
   </div>)
 }
 
-export default <Token />
+export default Token

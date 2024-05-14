@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Context } from "../context-provider";
 
 function Parsing() {
 
@@ -7,4 +6,4 @@ function Parsing() {
   return (<div>PARSING</div>)
 }
 
-export default <Parsing />
+export default Parsing
