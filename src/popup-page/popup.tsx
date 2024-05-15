@@ -19,7 +19,7 @@ function Component({ component }: { component: any }) {
 
 export const Popup: FC<IProps> = () => {
 
-  const [activeItem, setActiveItem] = useState(2);
+  const [activeItem, setActiveItem] = useState(0);
 
   useEffect(() => {
   }, []);
@@ -36,7 +36,7 @@ export const Popup: FC<IProps> = () => {
         <div className="py-2 px-2">
           <div className="flex items-center gap-1 mb-4">
             {tabs.map((item, index) => {
-              return (<div className="relative">
+              return (<div className="relative" key={index}>
                 <span
                   className={`animate-fade-down duration-100 cursor-pointer text-[#0000008d] ${delays[index]} ${index == activeItem ? "border-b-main !text-[#000]" : ""} `}
                   key={index}

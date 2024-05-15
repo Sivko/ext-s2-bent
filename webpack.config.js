@@ -10,15 +10,15 @@ const tsRule = {
 }
 
 const plugins = [
-  new HTMLWebpackPlugin({
-    template: 'src/popup-page/popup.html',
-    filename: 'popup.html',
-    chunks: ['popup'],
-  }),
   new CopyWebpackPlugin({
     patterns: [
       { from: "public", to: "." }
     ],
+  }),
+  new HTMLWebpackPlugin({
+    template: 'src/popup-page/popup.html',
+    filename: 'popup.html',
+    chunks: ['popup'],
   }),
   new CleanWebpackPlugin(),
 ];
@@ -42,6 +42,7 @@ module.exports = {
     service_worker: './src/service_worker.ts',
   },
   watch: true,
+  plugins,
   // exclude: 
   output: {
     filename: '[name].js',
@@ -50,5 +51,4 @@ module.exports = {
   module: {
     rules: [tsRule],
   },
-  plugins,
 }

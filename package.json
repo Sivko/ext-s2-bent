@@ -5,7 +5,7 @@
   "main": "index.js",
   "homepage": "./",
   "scripts": {
-    "dev": "webpack",
+    "dev": "webpack --mode development",
     "css": "npx tailwindcss -i ./src/style.css -o ./dist/style.css --watch"
   },
   "keywords": [],
