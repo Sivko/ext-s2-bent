@@ -1,12 +1,15 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useContext, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import Window from "./frame/Window";
+import { Ctx } from "./frame/ctx";
 
-interface IProps { }
+interface IProps {
+  src: string
+}
 
-const Content: FC<IProps> = () => {
+const Content: FC<IProps> = ({ src }) => {
 
-  const [item, setItem] = useState({});
+  const { setIframeSrc } = useContext(Ctx)
 
   useEffect(() => {
     // (async () => {
@@ -25,11 +28,11 @@ const Content: FC<IProps> = () => {
 let observer = new MutationObserver(mutations => {
   for (let mutation of mutations) {
     for (let node of mutation.addedNodes) {
-      if (node.nodeName=="IFRAME") {
+      if (node.nodeName == "IFRAME") {
         const elem = node as HTMLIFrameElement
         if (elem.getAttribute("src")?.includes("example")) {
           console.log("Render")
-          render(<Content />, elem.parentElement)
+          render(<Content src={elem.getAttribute("src") ?? ""} />, elem.parentElement)
         }
       }
     }
@@ -38,8 +41,8 @@ let observer = new MutationObserver(mutations => {
 
 const body = document.querySelector("body") as HTMLBodyElement;
 observer.observe(body, {
-  childList: true, 
-  subtree: true, 
-  characterDataOldValue: false 
+  childList: true,
+  subtree: true,
+  characterDataOldValue: false
 });
 

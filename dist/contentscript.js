@@ -29834,6 +29834,25 @@ function Header() {
 
 /***/ }),
 
+/***/ "./src/frame/Product/index.tsx":
+/*!*************************************!*\
+  !*** ./src/frame/Product/index.tsx ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Product)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function Product() {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
+}
+
+
+/***/ }),
+
 /***/ "./src/frame/Window/index.tsx":
 /*!************************************!*\
   !*** ./src/frame/Window/index.tsx ***!
@@ -29846,13 +29865,89 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Header */ "./src/frame/Header/index.tsx");
+/* harmony import */ var _ctx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ctx */ "./src/frame/ctx.tsx");
+/* harmony import */ var _Product__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Product */ "./src/frame/Product/index.tsx");
+
+
 
 
 function Window() {
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Header__WEBPACK_IMPORTED_MODULE_1__["default"], null),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Any info")));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ctx__WEBPACK_IMPORTED_MODULE_2__["default"], null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Header__WEBPACK_IMPORTED_MODULE_1__["default"], null),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Product__WEBPACK_IMPORTED_MODULE_3__["default"], null))));
 }
+
+
+/***/ }),
+
+/***/ "./src/frame/ctx.tsx":
+/*!***************************!*\
+  !*** ./src/frame/ctx.tsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Ctx: () => (/* binding */ Ctx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+const Ctx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+    account: {},
+    setAccount: () => { },
+    address: "",
+    setAddress: () => { },
+    token: "",
+    setToken: () => { },
+    options: {},
+    // setItemCRM: () => { },
+    itemCRM: {},
+    // setItemDSD: () => { },
+    itemDSD: {},
+    iframeSrc: "",
+    setIframeSrc: () => { }
+});
+function init({ setAccount, setAddress, setToken, setOptions }) {
+    var _a, _b;
+    return __awaiter(this, void 0, void 0, function* () {
+        const account = yield chrome.storage.local.get(["account"]);
+        const address = yield chrome.storage.local.get(["address"]);
+        // const token = await chrome.storage.local.get(["token"])
+        const options = yield chrome.storage.local.get(["options"]);
+        setAccount((_a = account.account) !== null && _a !== void 0 ? _a : {});
+        console.log("account.account", account.account);
+        setAddress((address === null || address === void 0 ? void 0 : address.address) == "" ? "https://app.salesap.ru" : address === null || address === void 0 ? void 0 : address.address);
+        // setToken(token.token ?? "")
+        setOptions((_b = options.options) !== null && _b !== void 0 ? _b : {});
+    });
+}
+function CtxProvider({ children }) {
+    const [options, setOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+    const [account, setAccount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+    const [token, setToken] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+    const [address, setAddress] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+    const [itemCRM, setItemCRM] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+    const [itemDSD, setItemDSD] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+    const [iframeSrc, setIframeSrc] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        init({ setAccount, setToken, setAddress, setOptions });
+    }, []);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    }, [address, token,]);
+    return react__WEBPACK_IMPORTED_MODULE_0__.createElement(Ctx.Provider, { value: { account, setAccount, address, token, setAddress, setToken, options, itemCRM, itemDSD, iframeSrc, setIframeSrc } }, children);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CtxProvider);
 
 
 /***/ })
@@ -29923,11 +30018,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _frame_Window__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./frame/Window */ "./src/frame/Window/index.tsx");
+/* harmony import */ var _frame_ctx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./frame/ctx */ "./src/frame/ctx.tsx");
 
 
 
-const Content = () => {
-    const [item, setItem] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
+
+const Content = ({ src }) => {
+    const { setIframeSrc } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_frame_ctx__WEBPACK_IMPORTED_MODULE_3__.Ctx);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
         // (async () => {
         //   const response = await chrome.runtime.sendMessage("getOrder");
@@ -29938,14 +30035,14 @@ const Content = () => {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement(_frame_Window__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
 let observer = new MutationObserver(mutations => {
-    var _a;
+    var _a, _b;
     for (let mutation of mutations) {
         for (let node of mutation.addedNodes) {
             if (node.nodeName == "IFRAME") {
                 const elem = node;
                 if ((_a = elem.getAttribute("src")) === null || _a === void 0 ? void 0 : _a.includes("example")) {
                     console.log("Render");
-                    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Content, null), elem.parentElement);
+                    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Content, { src: (_b = elem.getAttribute("src")) !== null && _b !== void 0 ? _b : "" }), elem.parentElement);
                 }
             }
         }
