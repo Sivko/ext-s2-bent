@@ -38,7 +38,7 @@ module.exports = {
   },
   entry: {
     popup: './src/popup-page/popup.tsx',
-    contentscript: './src/contentscript.ts',
+    contentscript: './src/contentscript.tsx',
     service_worker: './src/service_worker.ts',
   },
   watch: true,

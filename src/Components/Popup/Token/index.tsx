@@ -7,6 +7,11 @@ function Token() {
   // const [token, setToken] = useState("")
 
   const { token, setToken, address, setAddress, account } = useContext(Context);
+  const [username, setUserName] = useState("")
+
+  useEffect(() => {
+    account?.userData?.data.attributes["last-name"] ? setUserName("Не авторизован") : setUserName(`${account?.userData?.data.attributes["last-name"]} ${account?.userData?.data.attributes["middle-name"][0]}. ${account?.userData?.data.attributes["first-name"][0]}.`)
+  }, [account])
 
   return (<div className="">
     <div className="flex items-center gap-4 animate-fade animate-delay-[200ms]">
@@ -18,7 +23,7 @@ function Token() {
     <div className="grid grid-cols-3 mt-4">
       <div>
         <div className="truncate animate-fade animate-delay-[260ms]"><span>{account?.userData?.data.attributes.email}</span></div>
-        <div className="truncate animate-fade animate-delay-[270ms]"><span>{account?.userData?.data.attributes["last-name"]} {account?.userData?.data.attributes["middle-name"][0]}. {account?.userData?.data.attributes["first-name"][0]}.</span></div>
+        <div className="truncate animate-fade animate-delay-[270ms]"><span>{username}</span></div>
         <div className="truncate animate-fade animate-delay-[280ms]">Роль: <span>{account?.userData?.data.attributes.role}</span></div>
       </div>
       <div>
@@ -26,8 +31,8 @@ function Token() {
         <div className="truncate animate-fade animate-delay-[300ms]"><span>{account?.userData?.included[0].attributes["company-name"]}</span></div>
       </div>
       <div>
-        <div className="truncate animate-fade animate-delay-[310ms]">Подписка: <span>{ `n/a `}</span></div>
-        <div className="truncate animate-fade animate-delay-[320ms]">Лимит: <span>{ `n/a `}</span></div>
+        <div className="truncate animate-fade animate-delay-[310ms]">Подписка: <span>{`n/a `}</span></div>
+        <div className="truncate animate-fade animate-delay-[320ms]">Лимит: <span>{`n/a `}</span></div>
       </div>
     </div>
 

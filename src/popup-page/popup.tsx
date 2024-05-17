@@ -2,15 +2,13 @@ import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import { AiFillAlert } from "react-icons/ai"
 import Token from "@/Components/Popup/Token";
-import Parsing from "@/Components/Popup/Parsing";
-import Batch from "@/Components/Popup/Batch";
 import ContextProvider from "@/context-provider";
 
 interface IProps {
 
 }
 
-const tabs = [{ name: "Токен", component: Token }, { name: "Парсинг", component: Parsing }, { name: "Массовое изменение", component: Batch }]
+const tabs = [{ name: "Токен", component: Token }]
 
 function Component({ component }: { component: any }) {
   const ComponentItem = component
@@ -30,7 +28,7 @@ export const Popup: FC<IProps> = () => {
     <>
       <ContextProvider>
         <div className="bg-main text-[#ffffffad] p-2 flex justify-between items-center">
-          <div className="animate-fade-down"><span>VineScript <sup>113</sup></span></div>
+          <div className="animate-fade-down">dasreda</div>
           <a href="#" className="text-[#ffffffad] p-2 border border-[#ffffffad] rounded-full"><AiFillAlert /></a>
         </div>
         <div className="py-2 px-2">
