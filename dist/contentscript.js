@@ -29811,6 +29811,50 @@ if (false) {} else {
 }
 
 
+/***/ }),
+
+/***/ "./src/frame/Header/index.tsx":
+/*!************************************!*\
+  !*** ./src/frame/Header/index.tsx ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Header)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function Header() {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "flex items-center justify-between" },
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "py-2 px-4 rounded bg-main text-white" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0437\u0430\u044F\u0432\u043A\u0443")));
+}
+
+
+/***/ }),
+
+/***/ "./src/frame/Window/index.tsx":
+/*!************************************!*\
+  !*** ./src/frame/Window/index.tsx ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Window)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Header */ "./src/frame/Header/index.tsx");
+
+
+function Window() {
+    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Header__WEBPACK_IMPORTED_MODULE_1__["default"], null),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Any info")));
+}
+
+
 /***/ })
 
 /******/ 	});
@@ -29840,6 +29884,23 @@ if (false) {} else {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -29861,33 +29922,41 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+/* harmony import */ var _frame_Window__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./frame/Window */ "./src/frame/Window/index.tsx");
+
 
 
 const Content = () => {
     const [item, setItem] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        (() => __awaiter(void 0, void 0, void 0, function* () {
-            const response = yield chrome.runtime.sendMessage("getOrder");
-            setItem(response);
-        }))();
+        // (async () => {
+        //   const response = await chrome.runtime.sendMessage("getOrder");
+        //   setItem(response);
+        // })();
     }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("pre", null, JSON.stringify(item, null, 2))));
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_frame_Window__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
-const elements = document.querySelectorAll("iframe:last-child");
-const element = [...elements][elements.length - 1];
-console.log(elements, "elements");
-console.log(element, "element");
-(0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Content, null), element);
+let observer = new MutationObserver(mutations => {
+    var _a;
+    for (let mutation of mutations) {
+        for (let node of mutation.addedNodes) {
+            if (node.nodeName == "IFRAME") {
+                const elem = node;
+                if ((_a = elem.getAttribute("src")) === null || _a === void 0 ? void 0 : _a.includes("example")) {
+                    console.log("Render");
+                    (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Content, null), elem.parentElement);
+                }
+            }
+        }
+    }
+});
+const body = document.querySelector("body");
+observer.observe(body, {
+    childList: true,
+    subtree: true,
+    characterDataOldValue: false
+});
 
 })();
 

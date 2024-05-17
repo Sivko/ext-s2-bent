@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { render } from 'react-dom';
+import Window from "./frame/Window";
 
 interface IProps { }
 
@@ -8,23 +9,37 @@ const Content: FC<IProps> = () => {
   const [item, setItem] = useState({});
 
   useEffect(() => {
-    (async () => {
-      const response = await chrome.runtime.sendMessage("getOrder");
-      setItem(response);
-    })();
+    // (async () => {
+    //   const response = await chrome.runtime.sendMessage("getOrder");
+    //   setItem(response);
+    // })();
   }, []);
 
   return (
     <>
-      <pre>
-        {JSON.stringify(item, null, 2)}
-      </pre>
+      <Window />
     </>
   )
 }
 
-const elements = document.querySelectorAll("iframe:last-child")
-const element = [...elements][elements.length - 1]
-console.log(elements, "elements")
-console.log(element, "element")
-render(<Content />, element);
+let observer = new MutationObserver(mutations => {
+  for (let mutation of mutations) {
+    for (let node of mutation.addedNodes) {
+      if (node.nodeName=="IFRAME") {
+        const elem = node as HTMLIFrameElement
+        if (elem.getAttribute("src")?.includes("example")) {
+          console.log("Render")
+          render(<Content />, elem.parentElement)
+        }
+      }
+    }
+  }
+});
+
+const body = document.querySelector("body") as HTMLBodyElement;
+observer.observe(body, {
+  childList: true, 
+  subtree: true, 
+  characterDataOldValue: false 
+});
+
