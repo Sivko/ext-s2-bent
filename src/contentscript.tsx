@@ -2,6 +2,7 @@ import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
 import { render } from 'react-dom';
 import Window from "./frame/Window";
 import { Ctx } from "./frame/ctx";
+import { crm } from "./lib/crm";
 
 interface IProps {
   src: string
@@ -9,14 +10,32 @@ interface IProps {
 
 const Content: FC<IProps> = ({ src }) => {
 
-  const { setIframeSrc } = useContext(Ctx)
+  const { setIframeSrc, setToken, token, setItemCRM } = useContext(Ctx)
 
   useEffect(() => {
-    // (async () => {
-    //   const response = await chrome.runtime.sendMessage("getOrder");
-    //   setItem(response);
-    // })();
+    (async () => {
+      // const response = await chrome.runtime.sendMessage("getOrder");
+      // setItem(response);
+      const uri = new URL(src)
+      const id = uri.searchParams.get("ids[]")
+      const token = uri.searchParams.get("token") ?? "";
+
+      if (!id || !token) return;
+
+      await crm.setAddress()
+      crm.setOptions(token)
+      const res = await crm.getOrder(id);
+      console.log(res,"RES")
+
+
+    })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      crm.setAddress()
+    })()
+  }, [token])
 
   return (
     <>
