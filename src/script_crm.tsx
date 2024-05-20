@@ -10,9 +10,9 @@ const Content: FC<IProps> = ({ src }) => {
 
 
   return (
-    <>
+    <div style={{ overflow: "auto", width: "100%" }}>
       <Window src={src} />
-    </>
+    </div>
   )
 }
 
@@ -22,6 +22,8 @@ let observer = new MutationObserver(mutations => {
       if (node.nodeName == "IFRAME") {
         const elem = node as HTMLIFrameElement
         if (elem.getAttribute("src")?.includes("example")) {
+          const wrapper = elem.parentNode as HTMLDivElement
+          wrapper.style.display = "flex"
           render(<Content src={elem.getAttribute("src") ?? ""} />, elem.parentElement)
         }
       }

@@ -26,6 +26,10 @@ export default function Product({ src = "" }) {
   }, []);
 
   return (<div>
-    <pre>{JSON.stringify(itemDSD, null, 2)}</pre>
+    
+    <div className="flex justify-between p-5 text-base">
+      <div>Название: {itemDSD.number}</div>
+      <div>ID: {itemDSD.id}</div>
+    </div>
   </div>)
 }

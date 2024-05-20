@@ -2,6 +2,7 @@ import ky from "ky"
 import React, { SetStateAction, createContext, useEffect, useState } from "react"
 import { TokenRootInterface } from "../types/token"
 import { UserRootInterface } from "../types/user"
+import { DasredaRoot } from "types/DasredaRoot"
 
 interface Account {
   tokenData?: TokenRootInterface
@@ -18,7 +19,7 @@ interface Theme {
   setItemCRM: React.Dispatch<React.SetStateAction<any>>,
   itemCRM: any,
   setItemDSD: React.Dispatch<React.SetStateAction<any>>,
-  itemDSD: any,
+  itemDSD: DasredaRoot,
   iframeSrc: string,
   setIframeSrc: React.Dispatch<React.SetStateAction<string>>,
 }
