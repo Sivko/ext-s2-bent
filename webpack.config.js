@@ -38,7 +38,8 @@ module.exports = {
   },
   entry: {
     popup: './src/popup-page/popup.tsx',
-    contentscript: './src/contentscript.tsx',
+    script_crm: './src/script_crm.tsx',
+    script_dasreda: './src/script_dasreda.tsx',
     service_worker: './src/service_worker.ts',
   },
   watch: true,

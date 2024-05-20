@@ -44,18 +44,7 @@ export interface Attributes {
 }
 
 export interface Customs {
-  "custom-112419": number
-  "custom-112461": number
-  "custom-112462": number
-  "custom-112463": string
-  "custom-112464": string
-  "custom-112871": number
-  "custom-117107": number
-  "custom-125821": number
-  "custom-125822": number
-  "custom-125823": number
-  "custom-125824": number
-  "custom-126362": number
+  [key: string]: string | number
 }
 
 export interface Relationships {

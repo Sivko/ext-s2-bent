@@ -1,6 +1,10 @@
 import axios from "axios"
-import { useContext } from "react"
-import { CRMDealsRoot } from "types/CRMDealsRoot";
+import { CRMDealsRoot, Customs } from "types/CRMDealsRoot";
+
+
+const rules = {
+  fieldDasredaId: "custom-112404" as keyof Customs
+}
 
 export const crm = {
   options: {},
@@ -14,10 +18,8 @@ export const crm = {
 
   address: "",
 
-  async setAddress() {
-    // const _address = await chrome.storage.local.get(["address"])
-    const _address = "https://app.salesap.ru";
-    // this.address = _address.address;
+  async setAddress(href: string) {
+    const _address = href;
     this.address = this.address;
     return this
   },
@@ -25,6 +27,12 @@ export const crm = {
   async getOrder(id: number | string) {
     const res = await axios.get(`${this.address}/api/v1/deals/${id}`, this.options) as CRMDealsRoot;
     return res.data;
+  },
+
+  async getDasredaOrder(id: number | string) {
+    const _res = await axios.get(`${this.address}/api/v1/deals/${id}`, this.options);
+    const res = _res.data as CRMDealsRoot
+    return res.data.attributes.customs[rules.fieldDasredaId];
   }
 
 }

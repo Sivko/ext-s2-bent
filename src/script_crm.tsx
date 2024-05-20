@@ -14,28 +14,21 @@ const Content: FC<IProps> = ({ src }) => {
 
   useEffect(() => {
     (async () => {
-      // const response = await chrome.runtime.sendMessage("getOrder");
-      // setItem(response);
       const uri = new URL(src)
       const id = uri.searchParams.get("ids[]")
       const token = uri.searchParams.get("token") ?? "";
 
       if (!id || !token) return;
 
-      await crm.setAddress()
+      await crm.setAddress(window.location.origin)
       crm.setOptions(token)
-      const res = await crm.getOrder(id);
-      console.log(res,"RES")
+      const dasredaOrderId = await crm.getDasredaOrder(id);
+
+      
 
 
     })();
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      crm.setAddress()
-    })()
-  }, [token])
 
   return (
     <>

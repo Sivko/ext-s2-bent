@@ -29,7 +29,8 @@
         "<all_urls>"
       ],
       "js": [
-        "contentscript.js"
+        "script_crm.js",
+        "script_dasreda.js"
       ],
       "css": [
         "style.css"
