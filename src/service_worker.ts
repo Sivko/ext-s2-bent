@@ -5,9 +5,11 @@ console.log("sw-omnibox.js")
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   (async () => {
-    if (message === "getOrder") {
-      const result = await dasreda.getOrder(3679489);
+    if (message.type = "dasreda_getorder") {
+      const id = message.payload.id
+      const result = await dasreda.getOrder(id);
       sendResponse(result);
+      return;
     }
   })();
 

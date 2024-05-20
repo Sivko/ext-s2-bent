@@ -17,7 +17,7 @@ interface Theme {
   options: any
   setItemCRM: React.Dispatch<React.SetStateAction<any>>,
   itemCRM: any,
-  // setItemDSD: React.Dispatch<React.SetStateAction<any>>,
+  setItemDSD: React.Dispatch<React.SetStateAction<any>>,
   itemDSD: any,
   iframeSrc: string,
   setIframeSrc: React.Dispatch<React.SetStateAction<string>>,
@@ -33,7 +33,7 @@ export const Ctx = createContext<Theme>({
   options: {},
   setItemCRM: () => { },
   itemCRM: {},
-  // setItemDSD: () => { },
+  setItemDSD: () => { },
   itemDSD: {},
   iframeSrc: "",
   setIframeSrc: () => { }
@@ -71,7 +71,7 @@ function CtxProvider({ children }: Readonly<{ children: React.ReactNode; }>) {
   },[address, token,])
 
 
-  return <Ctx.Provider value={{ account, setAccount, address, token, setAddress, setToken, options, itemCRM, itemDSD, iframeSrc, setIframeSrc, setItemCRM }}>
+  return <Ctx.Provider value={{ account, setAccount, address, token, setAddress, setToken, options, itemCRM, itemDSD, iframeSrc, setIframeSrc, setItemCRM, setItemDSD }}>
     {children}
   </Ctx.Provider>
 }
