@@ -2,6 +2,7 @@ import React, { FC, ReactElement, useContext, useEffect, useState } from 'react'
 import { render } from 'react-dom';
 import Window from "./frame/Window";
 import axios from "axios";
+import { reducers } from "./lib/reducers";
 
 interface IProps {
   src: string
@@ -28,7 +29,7 @@ let observer = new MutationObserver(mutations => {
 
         if (elem.querySelector("#informers-container")) {
           const el = elem.querySelector("#informers-container") as HTMLDivElement
-          lastOpenWindowCRM(el)
+          reducers.lastOpenWindowCRM(el)
         }
       }
 
@@ -51,25 +52,12 @@ observer.observe(body, {
 });
 
 
-type Types = { [k: string]: string };
-const types: Types = {
-  Order: "order"
-}
 
-const lastOpenWindowCRM = async (elem?: HTMLDivElement) => {
-  if (!elem) return;
-  const url = new URL(`${window.location.origin}/${elem.getAttribute("data-source")}`);
-  const _type = url.searchParams.get("class_name") as keyof Types
-  const type = types[_type]
-  if (type !== "order") return;
-  const id = url.searchParams.get("entity_id")
-  console.log("OPEN")
-  const _data = await (await axios.get(`${process.env.CRM}/api/v1/orders/${id}?include=companies`, { withCredentials: true })).data
-  _data.included ? chrome.storage.local.set({ "lastCompany": {data: _data.included[0]} }) : chrome.storage.local.set({ "lastCompany": null })
-}
+
+
 
 
 window.onload = function () {
   const elem = document.querySelector("#informers-container") as HTMLDivElement
-  lastOpenWindowCRM(elem)
+  reducers.lastOpenWindowCRM(elem)
 }

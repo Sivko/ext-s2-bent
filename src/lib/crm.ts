@@ -22,14 +22,6 @@ export const crm = {
     return this;
   },
 
-  // address: "",
-
-  // async setAddress(href: string) {
-  //   const _address = href;
-  //   this.address = this.address;
-  //   return this
-  // },
-
   async getOrder(id: number | string) {
     const res = await axios.get(`${process.env.CRM}/api/v1/deals/${id}`, this.options) as CRMDealsRoot;
     return res.data;

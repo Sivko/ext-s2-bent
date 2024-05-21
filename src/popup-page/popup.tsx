@@ -2,7 +2,6 @@ import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import { AiFillAlert } from "react-icons/ai"
 import Token from "@/Components/Popup/Token";
-import ContextProvider from "@/context-provider";
 
 interface IProps {
 
@@ -14,15 +13,13 @@ export const Popup: FC<IProps> = () => {
 
   return (
     <>
-      <ContextProvider>
-        <div className="bg-main text-[#ffffffad] p-2 flex justify-between items-center">
-          <div className="animate-fade-down">Dasreda</div>
-          <a href="#" className="text-[#ffffffad] p-2 border border-[#ffffffad] rounded-full"><AiFillAlert /></a>
-        </div>
-        <div className="py-2 px-2 h-full">
-          <Token />
-        </div >
-      </ContextProvider>
+      <div className="bg-main text-[#ffffffad] p-2 flex justify-between items-center">
+        <div className="animate-fade-down">Dasreda</div>
+        <a href="#" className="text-[#ffffffad] p-2 border border-[#ffffffad] rounded-full"><AiFillAlert /></a>
+      </div>
+      <div className="py-2 px-2 h-full">
+        <Token />
+      </div >
     </>
   );
 }

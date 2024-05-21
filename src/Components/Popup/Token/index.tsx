@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "@/context-provider";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import dasreda from "@/lib/dasreda";
 import { crm } from "@/lib/crm";
+import { CRMCompanyRoot } from "types/CRMCompanyRoot";
+import { reducers } from "@/lib/reducers";
 
 function Token() {
 
-  const { address, setAddress, account, lastCompany } = useContext(Context);
-
   const [createTimeTokenDasreda, setCreateTimeTokenDasreda] = useState(0)
   const [token, setToken] = useState("")
+  const [lastCompany, setLastCompany] = useState<CRMCompanyRoot>({})
 
   useEffect(() => {
     (async () => {
@@ -18,6 +18,9 @@ function Token() {
 
       const _token = await crm.getToken() as string
       setToken(_token);
+
+      const _lastCompany = await reducers.getLastCompany();
+      setLastCompany(_lastCompany);
     })()
   })
 
@@ -36,7 +39,7 @@ function Token() {
         <div className="w-1/2">{lastCompany.data?.attributes.email}</div>
       </div>
     </div>
-    <div className="flex flex-wrap text-sm text-secondary">
+    <div className="flex flex-wrap text-xs text-secondary">
       <div className="w-1/2">CRM</div>
       {token && <div className="w-1/2">{token}</div>}
       {!token && <div className="w-1/2">Ключ не найден</div>}

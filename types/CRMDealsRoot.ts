@@ -1,5 +1,8 @@
+import { CRMCompanyRoot } from "./CRMCompanyRoot"
+
 export interface CRMDealsRoot {
   data: Data
+  included?: CRMCompanyRoot[]
 }
 
 export interface Data {
