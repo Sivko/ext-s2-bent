@@ -63,11 +63,13 @@ const lastOpenWindowCRM = async (elem?: HTMLDivElement) => {
   const type = types[_type]
   if (type !== "order") return;
   const id = url.searchParams.get("entity_id")
-  console.log("OPEN", `${process.env.CRM}/api/v1/orders/${id}?include=companies`)
+  console.log("OPEN")
+  const _data = await (await axios.get(`${process.env.CRM}/api/v1/orders/${id}?include=companies`, { withCredentials: true })).data
+  _data.included ? chrome.storage.local.set({ "lastCompany": {data: _data.included[0]} }) : chrome.storage.local.set({ "lastCompany": null })
 }
 
 
-window.onload = function(){
+window.onload = function () {
   const elem = document.querySelector("#informers-container") as HTMLDivElement
   lastOpenWindowCRM(elem)
 }

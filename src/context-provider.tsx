@@ -2,6 +2,7 @@ import ky from "ky"
 import React, { SetStateAction, createContext, useEffect, useState } from "react"
 import { TokenRootInterface } from "./types/token"
 import { UserRootInterface } from "./types/user"
+import { CRMCompanyRoot } from "types/CRMCompanyRoot"
 
 interface Account {
   tokenData?: TokenRootInterface
@@ -14,7 +15,8 @@ interface Theme {
   setAddress: React.Dispatch<React.SetStateAction<string>>,
   token: string,
   setToken: React.Dispatch<React.SetStateAction<string>>,
-  options: any
+  options: any,
+  lastCompany: CRMCompanyRoot,
 }
 
 export const Context = createContext<Theme>({
@@ -24,20 +26,24 @@ export const Context = createContext<Theme>({
   setAddress: () => { },
   token: "",
   setToken: () => { },
-  options: {}
+  options: {},
+  lastCompany: {}
 })
 
-async function init({ setAccount, setAddress, setToken, setOptions }: { setAccount: SetStateAction<any>, setAddress: SetStateAction<any>, setToken: SetStateAction<any>, setOptions: SetStateAction<any> }) {
+async function init({ setAccount, setAddress, setToken, setOptions, setLastCompany }: { setAccount: SetStateAction<any>, setAddress: SetStateAction<any>, setToken: SetStateAction<any>, setOptions: SetStateAction<any>, setLastCompany?: SetStateAction<any> }) {
   const account = await chrome.storage.local.get(["account"])
   const address = await chrome.storage.local.get(["address"])
   const token = await chrome.storage.local.get(["token"])
   const options = await chrome.storage.local.get(["options"])
+  const {lastCompany} = await chrome.storage.local.get(["lastCompany"])
 
   setAccount(account.account ?? {})
   console.log("account.account", account.account,)
   setAddress(address?.address == "" ? "https://app.salesap.ru" : address?.address)
   setToken(token.token ?? "")
   setOptions(options.options ?? {})
+
+  setLastCompany(lastCompany)
 }
 
 async function updateAddressAndToken({ address, token, setAccount, setOptions, setFlagUpdate, flagUpdate }: { address: string, token: string, setAccount?: SetStateAction<any>, setOptions: SetStateAction<any>, setTest?: SetStateAction<any>, flagUpdate: boolean, setFlagUpdate: SetStateAction<any> }) {
@@ -55,7 +61,7 @@ async function updateAddressAndToken({ address, token, setAccount, setOptions, s
       //@ts-ignore
       const userData: UserRootInterface = await ky.get(`${address}/api/v1/users/${tokenData.data.attributes["user-id"]}?include=account`, options).json();
       chrome.storage.local.set({ "account": { tokenData, userData } })
-      setAccount({tokenData, userData})
+      setAccount({ tokenData, userData })
       chrome.storage.local.set({ "options": options })
       setOptions(options)
     }
@@ -73,11 +79,11 @@ function ContextProvider({ children }: Readonly<{ children: React.ReactNode; }>)
   const [account, setAccount] = useState<Account>({});
   const [token, setToken] = useState("");
   const [address, setAddress] = useState("")
-  // const [test] = useState("")
+  const [lastCompany, setLastCompany] = useState<CRMCompanyRoot>({})
   const [flagUpdate, setFlagUpdate] = useState(false)
 
   useEffect(() => {
-    init({ setAccount, setToken, setAddress, setOptions })
+    init({ setAccount, setToken, setAddress, setOptions, setLastCompany })
   }, [])
 
   useEffect(() => {
@@ -87,7 +93,7 @@ function ContextProvider({ children }: Readonly<{ children: React.ReactNode; }>)
 
   }, [token, address])
 
-  return <Context.Provider value={{ account, setAccount, address, token, setAddress, setToken, options }}>
+  return <Context.Provider value={{ account, setAccount, address, token, setAddress, setToken, options, lastCompany }}>
     {children}
   </Context.Provider>
 }

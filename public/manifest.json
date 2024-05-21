@@ -13,7 +13,8 @@
   ],
   "host_permissions": [
     "https://app.salesap.ru/*",
-    "https://partners.dasreda.ru/*"
+    "https://partners.dasreda.ru/*",
+    "https://app.s2erp.com/*"
   ],
   "icons": {
     "48": "icon-48.png",
