@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 const tsRule = {
   test: /\.ts(x?)$/,
@@ -10,6 +11,8 @@ const tsRule = {
 }
 
 const plugins = [
+  new Dotenv(),
+
   new CopyWebpackPlugin({
     patterns: [
       { from: "public", to: "." }

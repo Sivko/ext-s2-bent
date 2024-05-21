@@ -3,9 +3,6 @@ import { Context } from "@/context-provider";
 
 function Token() {
 
-  // const [address, setAddress] = useState("")
-  // const [token, setToken] = useState("")
-
   const { token, setToken, address, setAddress, account } = useContext(Context);
   const [username, setUserName] = useState("")
 

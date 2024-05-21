@@ -8,19 +8,7 @@ interface IProps {
 
 }
 
-const tabs = [{ name: "Токен", component: Token }]
-
-function Component({ component }: { component: any }) {
-  const ComponentItem = component
-  return <ComponentItem />
-}
-
 export const Popup: FC<IProps> = () => {
-
-  const [activeItem, setActiveItem] = useState(0);
-
-  useEffect(() => {
-  }, []);
 
   const delays = ["animate-delay-[100ms]", "animate-delay-[200ms]", "animate-delay-[300ms]", "animate-delay-[400ms]"]
 
@@ -28,22 +16,11 @@ export const Popup: FC<IProps> = () => {
     <>
       <ContextProvider>
         <div className="bg-main text-[#ffffffad] p-2 flex justify-between items-center">
-          <div className="animate-fade-down">dasreda</div>
+          <div className="animate-fade-down">Dasreda</div>
           <a href="#" className="text-[#ffffffad] p-2 border border-[#ffffffad] rounded-full"><AiFillAlert /></a>
         </div>
         <div className="py-2 px-2">
-          <div className="flex items-center gap-1 mb-4">
-            {tabs.map((item, index) => {
-              return (<div className="relative" key={index}>
-                <span
-                  className={`animate-fade-down duration-100 cursor-pointer text-[#0000008d] ${delays[index]} ${index == activeItem ? "border-b-main !text-[#000]" : ""} `}
-                  key={index}
-                  onClick={() => setActiveItem(index)}>{item.name}</span>
-              </div>
-              )
-            })}
-          </div>
-          <Component component={tabs[activeItem].component} />
+          <Token />
         </div >
       </ContextProvider>
     </>

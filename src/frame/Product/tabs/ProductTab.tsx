@@ -10,10 +10,6 @@ export default function ProductTab() {
     {itemDSD.products?.map((item, index) => (
       <div>
         <div className="font-bold text-xl" key={index}>{item.product.name}</div>
-        <div className="flex max-w-[520px] flex-wrap  text-secondary">
-          <div className="w-1/2">Внешний ID</div>
-          <div className="w-1/2">{item.external_id}</div>
-        </div>
 
         <div className="bg-white rounded text-sm py-2">
           {itemDSD.product_order_relations?.filter((product) => item.product.id == product.product_id)?.reverse().map((item, idx) => (

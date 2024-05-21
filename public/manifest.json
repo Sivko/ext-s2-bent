@@ -9,12 +9,11 @@
   "permissions": [
     "tabs",
     "activeTab",
-    "storage",
-    "webRequest",
-    "webRequestAuthProvider"
+    "storage"
   ],
   "host_permissions": [
-    "*://*.*/*"
+    "https://app.salesap.ru/*",
+    "https://partners.dasreda.ru/*"
   ],
   "icons": {
     "48": "icon-48.png",
