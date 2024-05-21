@@ -3,10 +3,16 @@ import { DasredaRoot } from "types/DasredaRoot";
 
 interface Auth {
   eo_token: string,
-  id: string
+  id: string,
+  time: number,
 }
 
 const dasreda = {
+
+  async getCreateTimeToken(){
+    const { time } = (await chrome.storage.local.get("auth")).auth as Auth
+    return time
+  },
 
   async options() {
     const time = new Date().getTime()

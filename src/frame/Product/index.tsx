@@ -26,7 +26,6 @@ export default function Product({ src = "" }) {
 
       if (!id || !token) return;
 
-      await crm.setAddress(window.location.origin)
       crm.setOptions(token)
       const dasredaOrderId = await crm.getDasredaOrder(id);
       if (!dasredaOrderId) return;

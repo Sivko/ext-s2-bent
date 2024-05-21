@@ -1,16 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "@/context-provider";
+import moment from "moment";
+import dasreda from "@/lib/dasreda";
+import { crm } from "@/lib/crm";
 
 function Token() {
 
-  const { token, setToken, address, setAddress, account, lastCompany } = useContext(Context);
-  const [username, setUserName] = useState("")
+  const { address, setAddress, account, lastCompany } = useContext(Context);
+
+  const [createTimeTokenDasreda, setCreateTimeTokenDasreda] = useState(0)
+  const [token, setToken] = useState("")
 
   useEffect(() => {
-    account?.userData?.data.attributes["last-name"] ? setUserName("Не авторизован") : setUserName(`${account?.userData?.data.attributes["last-name"]} ${account?.userData?.data.attributes["middle-name"][0]}. ${account?.userData?.data.attributes["first-name"][0]}.`)
-  }, [account])
+    (async () => {
+      const time = await dasreda.getCreateTimeToken()
+      setCreateTimeTokenDasreda(time)
 
-  return (<div className="">
+      const _token = await crm.getToken() as string
+      setToken(_token);
+    })()
+  })
+
+  return (<div className="flex justify-between flex-col h-full">
     <div className="text-sm text-secondary">
       <div className="flex flex-wrap">
         <div className="w-1/2">Компания</div>
@@ -25,7 +36,15 @@ function Token() {
         <div className="w-1/2">{lastCompany.data?.attributes.email}</div>
       </div>
     </div>
-    <div className="flex items-center gap-4 animate-fade animate-delay-[200ms]">
+    <div className="flex flex-wrap text-sm text-secondary">
+      <div className="w-1/2">CRM</div>
+      {token && <div className="w-1/2">{token}</div>}
+      {!token && <div className="w-1/2">Ключ не найден</div>}
+      <div className="w-1/2">Dasreda</div>
+      {createTimeTokenDasreda && <div className="w-1/2"> Ключ от {moment(createTimeTokenDasreda).format("DD.MM.YYYY")}</div>}
+      {!createTimeTokenDasreda && <div className="w-1/2"><a href={process.env.DASREDA} target="_blank">Авторизоваться</a></div>}
+    </div>
+    {/* <div className="flex items-center gap-4 animate-fade animate-delay-[200ms]">
       <span className="max-w-[70px] w-[70px] truncate">Адрес СRM</span><input value={address} onChange={e => setAddress(prev => { chrome.storage.local.set({ "address": e.target.value }); return e.target.value })} placeholder="https://app.salesap.ru/" type="text" className="border-solid border-main border-opacity-20 border-0 border-b py-1 outline-none focus:border-opacity-100 transition-all flex-1" />
     </div>
     <div className="flex items-center gap-4 animate-fade animate-delay-[250ms]">
@@ -45,7 +64,7 @@ function Token() {
         <div className="truncate animate-fade animate-delay-[310ms]">Подписка: <span>{`n/a `}</span></div>
         <div className="truncate animate-fade animate-delay-[320ms]">Лимит: <span>{`n/a `}</span></div>
       </div>
-    </div>
+    </div> */}
 
   </div>)
 }

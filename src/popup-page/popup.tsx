@@ -19,7 +19,7 @@ export const Popup: FC<IProps> = () => {
           <div className="animate-fade-down">Dasreda</div>
           <a href="#" className="text-[#ffffffad] p-2 border border-[#ffffffad] rounded-full"><AiFillAlert /></a>
         </div>
-        <div className="py-2 px-2">
+        <div className="py-2 px-2 h-full">
           <Token />
         </div >
       </ContextProvider>
