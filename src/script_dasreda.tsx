@@ -18,18 +18,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const phone = document.querySelector("#orders\\\/edit_order_phone") as HTMLInputElement
     const email = document.querySelector("#orders\\\/edit_order_email") as HTMLInputElement
     const amount = document.querySelector("#orders\\\/edit_order_deal_amount") as HTMLInputElement
-    
-    (async ()=>{
+
+    const event = document.createEvent('HTMLEvents');
+    event.initEvent('change', true, false);
+
+    (async () => {
       const lastDeal = await reducers.getLastDeal()
       const lastCompany = await reducers.getLastCompany()
 
       inputCompany.value = lastCompany.data?.attributes["full-name"]
+      inputCompany.dispatchEvent(event);
       lastName.value = lastCompany.data?.attributes["manager-name"].split(" ")[0]
+      lastName.dispatchEvent(event);
       firstName.value = lastCompany.data?.attributes["manager-name"].split(" ")[1]
+      firstName.dispatchEvent(event);
       middleName.value = lastCompany.data?.attributes["manager-name"].split(" ")[2]
-      phone.value = mask(lastCompany.data?.attributes["general-phone"]) 
+      middleName.dispatchEvent(event);
+      phone.value = mask(lastCompany.data?.attributes["general-phone"])
+      phone.dispatchEvent(event);
       email.value = lastCompany.data?.attributes.email ?? ""
+      email.dispatchEvent(event);
       amount.value = lastDeal.data?.attributes.amount ?? ""
+      amount.dispatchEvent(event);
     })()
     return true;
   }

@@ -8,8 +8,8 @@ export default function OrderTab() {
 
   return (
     <>
-      <div className="font-bold text-xl">Клиент</div>
-      <div className="flex max-w-[520px] flex-wrap  text-secondary">
+      <div className="text-xl font-normal pb-2 pt-4">Клиент</div>
+      <div className="flex max-w-[520px] flex-wrap gap-y-2 text-secondary">
         <div className="w-1/2">Клиент</div>
         <div className="w-1/2">{itemDSD.company_name}</div>
         <div className="w-1/2">ИНН</div>
@@ -21,8 +21,8 @@ export default function OrderTab() {
         <div className="w-1/2">Email</div>
         <div className="w-1/2">{itemDSD.contact_details?.email}</div>
       </div>
-      <div className="font-bold text-xl">Реквизиты</div>
-      <div className="flex max-w-[520px] flex-wrap  text-secondary mb-2">
+      <div className="font-normal text-xl pt-4 pb-2">Реквизиты</div>
+      <div className="flex max-w-[520px] flex-wrap  gap-y-2 text-secondary mb-2">
         <div className="w-1/2">Партнер</div>
         <div className="w-1/2">{itemDSD.partner?.name}</div>
         <div className="w-1/2">Сотрудник</div>
@@ -37,8 +37,8 @@ export default function OrderTab() {
         <div className="w-1/2">{itemDSD.manager?.name}</div>
       </div>
 
-      <div className="font-bold text-xl">Подразделение банка</div>
-      <div className="flex max-w-[520px] flex-wrap  text-secondary mb-2">
+      <div className="font-normal text-xl pt-4 pb-2">Подразделение банка</div>
+      <div className="flex max-w-[520px] gap-y-2 flex-wrap  text-secondary mb-2">
         <div className="w-1/2">Регион</div>
         <div className="w-1/2">{itemDSD.region?.name}</div>
       </div>

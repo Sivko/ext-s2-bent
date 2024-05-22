@@ -41,30 +41,30 @@ function Token() {
   return (<div className="flex justify-between flex-col h-full">
     <div className="text-sm text-secondary">
       <div className="flex flex-wrap">
-        <div className="w-1/2">Сделка</div>
-        <div className="w-1/2"><a href={`${process.env.CRM}/deals/${lastDeal?.data?.id}`} target="_blank">{lastDeal?.data?.attributes.name}</a></div>
-        <div className="w-1/2">Компания</div>
-        <div className="w-1/2"><a href={`${process.env.CRM}/companies/${lastCompany.data?.id}`} target="_blank">{lastCompany.data?.attributes.name}</a></div>
-        <div className="w-1/2">Руководитель</div>
-        <div className="w-1/2">{lastCompany.data?.attributes["manager-name"]}</div>
-        <div className="w-1/2">Телефон</div>
-        <div className="w-1/2">{lastCompany.data?.attributes["general-phone"]}</div>
-        <div className="w-1/2">ИНН</div>
-        <div className="w-1/2">{lastCompany.data?.attributes.inn}</div>
-        <div className="w-1/2">E-mail</div>
-        <div className="w-1/2">{lastCompany.data?.attributes.email}</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[270ms]">Сделка</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[280ms]"><a className="text-main underline-none" href={`${process.env.CRM}/deals/${lastDeal?.data?.id}`} target="_blank">{lastDeal?.data?.attributes.name}</a></div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[290ms]">Компания</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[300ms]"><a className="text-main underline-none" href={`${process.env.CRM}/companies/${lastCompany.data?.id}`} target="_blank">{lastCompany.data?.attributes.name}</a></div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[310ms]">Руководитель</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[320ms]">{lastCompany.data?.attributes["manager-name"]}</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[330ms]">Телефон</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[340ms]">{lastCompany.data?.attributes["general-phone"]}</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[350ms]">ИНН</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[360ms]">{lastCompany.data?.attributes.inn}</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[370ms]">E-mail</div>
+        <div className="w-1/2 truncate animate-fade animate-delay-[380ms]">{lastCompany.data?.attributes.email}</div>
       </div>
     </div>
     <div className="flex flex-wrap text-xs text-secondary">
 
-      <button onClick={handlerClick} className="w-full bg-main text-white mb-2 rounded py-2 outline-none border-none cursor-pointer">Заполнить данные</button>
+      <button onClick={handlerClick} className="w-full bg-main text-white mb-2 rounded py-2 outline-none border-none cursor-pointer animate-fade-down animate-delay-[420ms]">Заполнить данные</button>
 
-      <div className="w-1/2">CRM</div>
-      {token && <div className="w-1/2 truncate">{token}</div>}
-      {!token && <div className="w-1/2">Ключ не найден</div>}
-      <div className="w-1/2">Dasreda</div>
-      {createTimeTokenDasreda && <div className="w-1/2"> Ключ от {moment(createTimeTokenDasreda).format("DD.MM.YYYY")}</div>}
-      {!createTimeTokenDasreda && <div className="w-1/2"><a href={process.env.DASREDA} target="_blank">Авторизоваться</a></div>}
+      <div className="w-1/2 truncate animate-fade animate-delay-[420ms]">CRM</div>
+      {token && <div className="w-1/2 truncate animate-fade animate-delay-[430ms]">{token}</div>}
+      {!token && <div className="w-1/2 truncate animate-fade animate-delay-[440ms]">Ключ не найден</div>}
+      <div className="w-1/2 truncate animate-fade animate-delay-[450ms]">Dasreda</div>
+      {createTimeTokenDasreda && <div className="w-1/2 truncate animate-fade animate-delay-[460ms]"> Ключ от {moment(createTimeTokenDasreda).format("DD.MM.YYYY")}</div>}
+      {!createTimeTokenDasreda && <div className="w-1/2 truncate animate-fade animate-delay-[470ms]"><a href={process.env.DASREDA} target="_blank">Авторизоваться</a></div>}
     </div>
 
 

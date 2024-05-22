@@ -1,7 +1,6 @@
 import React, { FC, ReactElement, useContext, useEffect, useState } from 'react';
 import { render } from 'react-dom';
 import Window from "./frame/Window";
-import axios from "axios";
 import { reducers } from "./lib/reducers";
 
 interface IProps {
@@ -35,7 +34,6 @@ let observer = new MutationObserver(mutations => {
         }
       }
 
-
       if (node.nodeName == "IFRAME") {
         const elem = node as HTMLIFrameElement
         if (elem.getAttribute("src")?.includes("example")) {
@@ -52,12 +50,6 @@ observer.observe(body, {
   subtree: true,
   characterDataOldValue: false
 });
-
-
-
-
-
-
 
 window.onload = function () {
   const elem = document.querySelector(dealWindowId) as HTMLDivElement

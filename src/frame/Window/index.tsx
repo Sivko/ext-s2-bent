@@ -1,13 +1,11 @@
 import React from "react";
-import Header from "../Header";
 import CtxProvider from "../ctx";
 import Product from "../Product";
 
 export default function Window({ src="" }) {
 
-  return (<div>
+  return (<div className="w-full h-full">
     <CtxProvider>
-      <Header />
       <Product src={src} />
     </CtxProvider>
   </div>)
