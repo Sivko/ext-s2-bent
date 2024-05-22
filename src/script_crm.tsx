@@ -8,6 +8,8 @@ interface IProps {
   src: string
 }
 
+const dealWindowId = "#informers-container"
+
 const Content: FC<IProps> = ({ src }) => {
 
 
@@ -27,8 +29,8 @@ let observer = new MutationObserver(mutations => {
       if (node.nodeName == "DIV") {
         const elem = node as HTMLDivElement
 
-        if (elem.querySelector("#informers-container")) {
-          const el = elem.querySelector("#informers-container") as HTMLDivElement
+        if (elem.querySelector(dealWindowId)) {
+          const el = elem.querySelector(dealWindowId) as HTMLDivElement
           reducers.lastOpenWindowCRM(el)
         }
       }
@@ -58,6 +60,6 @@ observer.observe(body, {
 
 
 window.onload = function () {
-  const elem = document.querySelector("#informers-container") as HTMLDivElement
+  const elem = document.querySelector(dealWindowId) as HTMLDivElement
   reducers.lastOpenWindowCRM(elem)
 }

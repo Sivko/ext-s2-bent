@@ -4,12 +4,14 @@ import dasreda from "@/lib/dasreda";
 import { crm } from "@/lib/crm";
 import { CRMCompanyRoot } from "types/CRMCompanyRoot";
 import { reducers } from "@/lib/reducers";
+import { CRMDealsRoot } from "types/CRMDealsRoot";
 
 function Token() {
 
   const [createTimeTokenDasreda, setCreateTimeTokenDasreda] = useState(0)
   const [token, setToken] = useState("")
   const [lastCompany, setLastCompany] = useState<CRMCompanyRoot>({})
+  const [lastDeal, setLastDeal] = useState<CRMDealsRoot>({})
 
   useEffect(() => {
     (async () => {
@@ -21,6 +23,9 @@ function Token() {
 
       const _lastCompany = await reducers.getLastCompany();
       setLastCompany(_lastCompany);
+
+      const _lastDeal = await reducers.getLastDeal();
+      setLastDeal(_lastDeal);
     })()
   })
 
@@ -43,6 +48,7 @@ function Token() {
       <div className="w-1/2">CRM</div>
       {token && <div className="w-1/2">{token}</div>}
       {!token && <div className="w-1/2">Ключ не найден</div>}
+      
       <div className="w-1/2">Dasreda</div>
       {createTimeTokenDasreda && <div className="w-1/2"> Ключ от {moment(createTimeTokenDasreda).format("DD.MM.YYYY")}</div>}
       {!createTimeTokenDasreda && <div className="w-1/2"><a href={process.env.DASREDA} target="_blank">Авторизоваться</a></div>}

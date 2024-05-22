@@ -1,11 +1,12 @@
 import axios from "axios";
 import { CRMCompanyRoot } from "types/CRMCompanyRoot"
 import { CRMDealsRoot } from "types/CRMDealsRoot";
+import { crm } from "./crm";
 
 
 type Types = { [k: string]: string };
 const types: Types = {
-  Order: "order"
+  Deal: "deals"
 }
 
 
@@ -17,16 +18,16 @@ export const reducers = {
   },
 
   async setLastCompany(data: CRMCompanyRoot) {
-    chrome.storage.local.set({ "lastOrder": data })
+    chrome.storage.local.set({ "lastCompany": data })
   },
 
-  async getLastOrder() {
-    const { lastOrder } = await chrome.storage.local.get(["lastOrder"])
+  async getLastDeal() {
+    const { lastOrder } = await chrome.storage.local.get(["lastDeal"])
     return lastOrder
   },
 
-  async setLastOrder(data: CRMCompanyRoot) {
-    chrome.storage.local.set({ "lastOrder": data })
+  async setLastDeal(data: CRMCompanyRoot) {
+    chrome.storage.local.set({ "lastDeal": data })
   },
 
   async lastOpenWindowCRM(elem?: HTMLDivElement) {
@@ -34,15 +35,17 @@ export const reducers = {
     const url = new URL(`${window.location.origin}/${elem.getAttribute("data-source")}`);
     const _type = url.searchParams.get("class_name") as keyof Types
     const type = types[_type]
-    if (type !== "order") return;
     const id = url.searchParams.get("entity_id")
-    console.log("OPEN")
-    const order = await (await axios.get(`${process.env.CRM}/api/v1/orders/${id}?include=companies`, { withCredentials: true })).data as CRMDealsRoot
-    if (order.included) {
-      const company = order.included[0] as CRMCompanyRoot
-      // this.setLastCompany({ data: company })
+    console.log("OPEN", id, type)
+
+    if (!id || type != "deals") return;
+
+    const deal = await crm.getDeal(id);
+    if (deal?.included?.length) {
+      const company = { data: deal.included[0] } as CRMCompanyRoot
+      this.setLastCompany(company)
     } else {
-      reducers.setLastCompany({})
+      this.setLastCompany({})
     }
     // this.setLastOrder()
   }
