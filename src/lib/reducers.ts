@@ -14,7 +14,7 @@ export const reducers = {
 
   async getLastCompany() {
     const { lastCompany } = await chrome.storage.local.get(["lastCompany"])
-    return lastCompany
+    return lastCompany as CRMCompanyRoot
   },
 
   async setLastCompany(data: CRMCompanyRoot) {
@@ -22,11 +22,11 @@ export const reducers = {
   },
 
   async getLastDeal() {
-    const { lastOrder } = await chrome.storage.local.get(["lastDeal"])
-    return lastOrder
+    const { lastDeal } = await chrome.storage.local.get(["lastDeal"])
+    return lastDeal as CRMDealsRoot
   },
 
-  async setLastDeal(data: CRMCompanyRoot) {
+  async setLastDeal(data: CRMDealsRoot) {
     chrome.storage.local.set({ "lastDeal": data })
   },
 
@@ -41,6 +41,7 @@ export const reducers = {
     if (!id || type != "deals") return;
 
     const deal = await crm.getDeal(id);
+    this.setLastDeal(deal)
     if (deal?.included?.length) {
       const company = { data: deal.included[0] } as CRMCompanyRoot
       this.setLastCompany(company)

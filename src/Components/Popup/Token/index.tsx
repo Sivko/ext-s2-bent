@@ -14,8 +14,12 @@ function Token() {
   const [lastDeal, setLastDeal] = useState<CRMDealsRoot>({})
 
 
-  const handlerClick = () => {
-    chrome.runtime.sendMessage({ type: "dasreda_test" });
+  const handlerClick = async () => {
+    let queryOptions = { active: true, currentWindow: true };
+    let tab = await chrome.tabs.query(queryOptions);
+    if (!tab[0].id) return
+    chrome.tabs.sendMessage(tab[0].id, { type: "dasreda_test" });
+    return true;
   }
 
   useEffect(() => {
@@ -31,14 +35,14 @@ function Token() {
 
       const _lastDeal = await reducers.getLastDeal();
       setLastDeal(_lastDeal);
-
-      handlerClick()
     })()
-  })
+  }, [])
 
   return (<div className="flex justify-between flex-col h-full">
     <div className="text-sm text-secondary">
       <div className="flex flex-wrap">
+        <div className="w-1/2">Сделка</div>
+        <div className="w-1/2"><a href={`${process.env.CRM}/deals/${lastDeal?.data?.id}`} target="_blank">{lastDeal?.data?.attributes.name}</a></div>
         <div className="w-1/2">Компания</div>
         <div className="w-1/2"><a href={`${process.env.CRM}/companies/${lastCompany.data?.id}`} target="_blank">{lastCompany.data?.attributes.name}</a></div>
         <div className="w-1/2">Руководитель</div>
@@ -52,10 +56,12 @@ function Token() {
       </div>
     </div>
     <div className="flex flex-wrap text-xs text-secondary">
-      <div className="w-1/2">CRM</div>
-      {token && <div className="w-1/2">{token}</div>}
-      {!token && <div className="w-1/2">Ключ не найден</div>}
 
+      <button onClick={handlerClick} className="w-full bg-main text-white mb-2 rounded py-2 outline-none border-none cursor-pointer">Заполнить данные</button>
+
+      <div className="w-1/2">CRM</div>
+      {token && <div className="w-1/2 truncate">{token}</div>}
+      {!token && <div className="w-1/2">Ключ не найден</div>}
       <div className="w-1/2">Dasreda</div>
       {createTimeTokenDasreda && <div className="w-1/2"> Ключ от {moment(createTimeTokenDasreda).format("DD.MM.YYYY")}</div>}
       {!createTimeTokenDasreda && <div className="w-1/2"><a href={process.env.DASREDA} target="_blank">Авторизоваться</a></div>}

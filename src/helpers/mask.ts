@@ -1,4 +1,5 @@
 function mask(value: string) {
+  if (value == "") return "";
   const template = "+7 (___) ___-__-__",
     def = template.replace(/\D/g, ""),
     val = value.replace(/\D/g, "");
