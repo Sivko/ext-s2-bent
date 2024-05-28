@@ -9,6 +9,12 @@ interface Auth {
 
 const dasreda = {
 
+
+  async auth(){
+    const _auth = await axios.get("");
+    return this
+  },
+
   async getCreateTimeToken(){
     const { time } = (await chrome.storage.local.get("auth")).auth as Auth
     return time
