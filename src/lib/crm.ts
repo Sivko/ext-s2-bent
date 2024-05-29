@@ -27,7 +27,7 @@ export const crm = {
     return res.data as CRMDealsRoot;
   },
 
-  async getDasredaOrder(id: number | string) {
+  async getDasredaDeal(id: number | string) {
     const _res = await axios.get(`${process.env.CRM}/api/v1/deals/${id}`, { withCredentials: true });
     const res = _res.data as CRMDealsRoot
     return res.data?.attributes.customs[rules.fieldDasredaId];

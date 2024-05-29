@@ -1,7 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
 import dasreda from "./lib/dasreda";
-
-console.log("sw-omnibox.js")
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   (async () => {
@@ -12,7 +9,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return;
     }
   })();
-
-
   return true;
 });

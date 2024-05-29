@@ -9,7 +9,7 @@ export interface Item {
   value?: string
 }
 
-function Combobox({ items = [], item, setItem }: { items: Item[] | null, item: Item | null, setItem: any }) {
+function Combobox({ items = [], item, setItem, placeholder }: { items: Item[] | null, item: Item | null, setItem: any, placeholder?: string }) {
 
   const [inputValue, setInputValue] = useState(item ? item.name : "")
   const [isShowList, setIsShowList] = useState(false);
@@ -43,6 +43,7 @@ function Combobox({ items = [], item, setItem }: { items: Item[] | null, item: I
   return (<>
     <div className="relative" ref={comboboxRef}>
       <input type="text"
+        placeholder={placeholder}
         // onKeyDown={(e) => { setIsShowList(true); keyPressToSelect(e) }}
         className="py-2 px-1 border border-outline border-solid rounded outline-none w-full"
         value={inputValue}
@@ -62,7 +63,7 @@ function Combobox({ items = [], item, setItem }: { items: Item[] | null, item: I
         {filterElements && filterElements.length == 0 && <div
           className="py-2 px-1 text-center">Ничего не найдено</div>}
       </div>
-      <div className="absolute top-[-6px] left-2 text-[10px] bg-white">{item?.name ? item["attribute-name"] : "не выбрано"}</div>
+      <div className="absolute top-[-7px] left-2 text-[10px] bg-white leading-[2]">{item?.name ? item["attribute-name"] : "не выбрано"}</div>
     </div>
   </>)
 }

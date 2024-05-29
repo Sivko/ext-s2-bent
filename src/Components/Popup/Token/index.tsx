@@ -8,7 +8,7 @@ import { CRMDealsRoot } from "types/CRMDealsRoot";
 
 function Token() {
 
-  const [createTimeTokenDasreda, setCreateTimeTokenDasreda] = useState(0)
+  // const [createTimeTokenDasreda, setCreateTimeTokenDasreda] = useState(0)
   const [token, setToken] = useState("")
   const [lastCompany, setLastCompany] = useState<CRMCompanyRoot>({})
   const [lastDeal, setLastDeal] = useState<CRMDealsRoot>({})
@@ -24,8 +24,8 @@ function Token() {
 
   useEffect(() => {
     (async () => {
-      const time = await dasreda.getCreateTimeToken()
-      setCreateTimeTokenDasreda(time)
+      // const time = await dasreda.getCreateTimeToken()
+      // setCreateTimeTokenDasreda(time)
 
       const _token = await crm.getToken() as string
       setToken(_token);
@@ -33,8 +33,8 @@ function Token() {
       const _lastCompany = await reducers.getLastCompany();
       setLastCompany(_lastCompany);
 
-      const _lastDeal = await reducers.getLastDeal();
-      setLastDeal(_lastDeal);
+      const _lastDeak = await reducers.getLastDeal();
+      setLastDeal(_lastDeak);
     })()
   }, [])
 
@@ -63,8 +63,6 @@ function Token() {
       {token && <div className="w-1/2 truncate animate-fade animate-delay-[430ms]">{token}</div>}
       {!token && <div className="w-1/2 truncate animate-fade animate-delay-[440ms]">Ключ не найден</div>}
       <div className="w-1/2 truncate animate-fade animate-delay-[450ms]">Dasreda</div>
-      {createTimeTokenDasreda && <div className="w-1/2 truncate animate-fade animate-delay-[460ms]"> Ключ от {moment(createTimeTokenDasreda).format("DD.MM.YYYY")}</div>}
-      {!createTimeTokenDasreda && <div className="w-1/2 truncate animate-fade animate-delay-[470ms]"><a href={process.env.DASREDA} target="_blank">Авторизоваться</a></div>}
     </div>
 
 

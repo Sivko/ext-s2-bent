@@ -1,4 +1,3 @@
-import axios from "axios";
 import { CRMCompanyRoot } from "types/CRMCompanyRoot"
 import { CRMDealsRoot } from "types/CRMDealsRoot";
 import { crm } from "./crm";
@@ -18,6 +17,7 @@ export const reducers = {
   },
 
   async setLastCompany(data: CRMCompanyRoot) {
+    console.log("Storage setLastCompany", data)
     chrome.storage.local.set({ "lastCompany": data })
   },
 
@@ -41,6 +41,7 @@ export const reducers = {
     if (!id || type != "deals") return;
 
     const deal = await crm.getDeal(id);
+    console.log(deal)
     this.setLastDeal(deal)
     if (deal?.included?.length) {
       const company = { data: deal.included[0] } as CRMCompanyRoot
@@ -48,6 +49,6 @@ export const reducers = {
     } else {
       this.setLastCompany({})
     }
-    // this.setLastOrder()
+    // this.setLastDeal()
   }
 }
