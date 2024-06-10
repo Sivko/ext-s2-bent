@@ -31,6 +31,20 @@ export const crm = {
     const _res = await axios.get(`${process.env.CRM}/api/v1/deals/${id}`, { withCredentials: true });
     const res = _res.data as CRMDealsRoot
     return res.data?.attributes.customs[rules.fieldDasredaId];
+  },
+
+  async setDasredaId(idCRM: number | string, idDasreda: number | string) {
+    const data = {
+      data: {
+        type: "deals",
+        id: idCRM,
+        attributes:
+        {
+          customs: { [rules.fieldDasredaId]: idDasreda }
+        }
+      }
+    }
+    await axios.patch(`${process.env.CRM}/api/v1/deals/${idCRM}`, data, this.options)
   }
 
 }
