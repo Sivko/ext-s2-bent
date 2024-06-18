@@ -12,9 +12,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://app.salesap.ru/*",
     "https://partners.dasreda.ru/*",
-    "https://app.s2erp.com/*"
+    "https://app.salesap.ru/*"
   ],
   "icons": {
     "48": "icon-48.png",

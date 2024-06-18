@@ -1,5 +1,8 @@
 import { DasredaRoot } from "types/DasredaRoot";
-import { DS1, DS2 } from "@/helpers/dataCreateDS";
+import { haveInvoceSB, notToHaveInvoceSB } from "@/helpers/dataCreateDS";
+import { ResponseCreateOrderDSRoot } from "types/ResponseCreateOrderDSRoot";
+import { crm } from "./crm";
+import { reducers } from "./reducers";
 
 interface AuthResponse {
   "id": string,
@@ -84,24 +87,28 @@ const dasreda = {
   async create(body: any) {
     const { inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn, hasInvoceSB } = body
     const formData = new FormData()
-    if (!hasInvoceSB) {
-      DS1({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }).split("\n").map((e: string) => {
+    if (hasInvoceSB) {
+      haveInvoceSB({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }).split("\n").map((e: string) => {
         formData.append(e.split(":")[0], e.split(":")[1]);
         return (``)
       })
     } else {
-      DS2({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }).split("\n").map((e: string) => {
+      notToHaveInvoceSB({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }).split("\n").map((e: string) => {
         formData.append(e.split(":")[0], e.split(":")[1]);
         return (``)
       })
     }
-    const _res = await fetch(`https://webhook.site/2afdd92c-19f3-428e-957f-6c3b9d0ae1e8`, {
-      method: 'post',
-      body: formData
-    });
-    const res = await _res.json()
-    
-    return res
+
+    try {
+      let options = await this.options({ method: "POST", body: formData })
+      const _res = await fetch(`https://webhook.site/2afdd92c-19f3-428e-957f-6c3b9d0ae1e8`, options);
+      const idDeal = (await reducers.getLastDeal()).data?.id
+      if (_res.ok && idDeal) {
+        const res = await _res.json() as ResponseCreateOrderDSRoot
+        await crm.setDasredaId(idDeal, res.id)
+      } else { return "Не указан idDeal"}
+      // return res
+    } catch (err) { console.log(err); return err }
   }
 
 }

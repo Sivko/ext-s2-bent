@@ -1,7 +1,7 @@
 import { Item } from "@/Components/Combobox";
 
 
-export const DS1 = ({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }: { inn: string, company: string, lastName: string, firstName: string, middleName: string, phone: string, email: string, region: Item, kpp: string, ogrn: string }) => `data[add_info]: 
+export const notToHaveInvoceSB = ({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }: { inn: string, company: string, lastName: string, firstName: string, middleName: string, phone: string, email: string, region: Item, kpp: string, ogrn: string }) => `data[add_info]: 
 data[add_info]: 
 data[attachments][]: 
 data[autocreated]: false
@@ -210,7 +210,7 @@ data[skip_integration_channels_slugs]:
 data[product_ids][]: 24
 data[confirmed_by_sms]: false`
 
-export const DS2 = ({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }: { inn: string, company: string, lastName: string, firstName: string, middleName: string, phone: string, email: string, region: Item, kpp: string, ogrn: string }) => `data[add_info]: 
+export const haveInvoceSB = ({ inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn }: { inn: string, company: string, lastName: string, firstName: string, middleName: string, phone: string, email: string, region: Item, kpp: string, ogrn: string }) => `data[add_info]: 
 data[attachments][]: 
 data[autocreated]: false
 data[call_me]: 

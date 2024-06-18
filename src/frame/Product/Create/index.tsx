@@ -1,10 +1,12 @@
 import Combobox from "@/Components/Combobox";
-import mask from "@/helpers/mask";
+import { Ctx } from "@/frame/ctx";
 import { regionList } from "@/helpers/regions";
 import { reducers } from "@/lib/reducers";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function Create() {
+
+  const { setItemDSD } = useContext(Ctx)
 
   const [inn, setInn] = useState("");
   const [kpp, setKpp] = useState("");
@@ -20,7 +22,7 @@ export default function Create() {
 
 
 
-  const [hasInvoceSB, setHasInvoceSB] = useState(false);
+  const [hasInvoceSB, setHasInvoceSB] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -49,9 +51,10 @@ export default function Create() {
     // const await fetch()
     const response = await chrome.runtime.sendMessage({
       type: "dasreda_create", payload: {
-        inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn, hasInvoceSB 
+        inn, company, lastName, firstName, middleName, phone, email, region, kpp, ogrn, hasInvoceSB
       }
     });
+    setItemDSD(response)
     console.log(response)
   }
 
