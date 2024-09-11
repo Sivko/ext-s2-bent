@@ -101,7 +101,7 @@ const dasreda = {
 
     try {
       let options = await this.options({ method: "POST", body: formData })
-      const _res = await fetch(`https://webhook.site/2afdd92c-19f3-428e-957f-6c3b9d0ae1e8`, options);
+      const _res = await fetch(`https://ppapi.dasreda.ru/api/v1/sber_mq/order/`, options);
       const idDeal = (await reducers.getLastDeal()).data?.id
       if (_res.ok && idDeal) {
         const res = await _res.json() as ResponseCreateOrderDSRoot

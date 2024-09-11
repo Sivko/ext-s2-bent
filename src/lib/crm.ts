@@ -3,7 +3,8 @@ import { CRMDealsRoot, Customs } from "types/CRMDealsRoot";
 
 
 const rules = {
-  fieldDasredaId: "custom-112404" as keyof Customs
+  // fieldDasredaId: "custom-112404" as keyof Customs
+  fieldDasredaId: "custom-128030" as keyof Customs
 }
 
 export const crm = {
@@ -30,6 +31,7 @@ export const crm = {
   async getDasredaDeal(id: number | string) {
     const _res = await axios.get(`${process.env.CRM}/api/v1/deals/${id}`, { withCredentials: true });
     const res = _res.data as CRMDealsRoot
+    console.log("Id is deal Dasreda", res.data?.attributes.customs[rules.fieldDasredaId])
     return res.data?.attributes.customs[rules.fieldDasredaId];
   },
 

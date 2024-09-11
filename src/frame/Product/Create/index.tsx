@@ -81,7 +81,7 @@ export default function Create() {
         <input placeholder="Email" className=" w-full max-w-[400px] border-b-outline border-white border" type="text" onChange={(e) => setEmail(e.target.value)} value={email} />
 
         <input required placeholder="ОГРН" className=" w-full max-w-[400px] border-b-outline border-white border" type="text" onChange={(e) => setOgrn(e.target.value)} value={ogrn} />
-        <input required placeholder="КПП" className=" w-full max-w-[400px] border-b-outline border-white border" type="text" onChange={(e) => setKpp(e.target.value)} value={kpp} />
+        <input placeholder="КПП" className=" w-full max-w-[400px] border-b-outline border-white border" type="text" onChange={(e) => setKpp(e.target.value)} value={kpp} />
 
         <div className="mt-2">
           <Combobox items={regionList} key={region.name} item={region} setItem={setRegion} placeholder="Регион" />
