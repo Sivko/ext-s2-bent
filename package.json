@@ -6,6 +6,7 @@
   "homepage": "./",
   "scripts": {
     "dev": "webpack --mode development",
+    "build": "webpack --mode production",
     "css": "npx tailwindcss -i ./src/style.css -o ./dist/style.css --watch"
   },
   "keywords": [],
